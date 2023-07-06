@@ -105,7 +105,7 @@ class PriceControllerTest {
     /**
      * @result
      * Test 5
-     * Validation search when date equals: 2020-06-16 21:00
+     * Validation search when date equals: 2020-06-16 21:00.
      */
     @Test
     void testFindCurrentPriceWhenDateEquals_20200616_21_00() {
