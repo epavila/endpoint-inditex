@@ -1,5 +1,6 @@
 package com.eavila.endpoint.controllers.v1;
 
+import com.eavila.endpoint.controllers.v1.swagger.PriceDocs;
 import com.eavila.endpoint.infraestructure.services.PriceService;
 import com.eavila.endpoint.model.response.PriceResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eavila.endpoint.utils.exception.Error;
 
-import static com.eavila.endpoint.openapi.OpenApiDocs.ReturnCode.*;
+import static com.eavila.endpoint.controllers.v1.swagger.OpenApiDocs.ReturnCode.*;
 
 @RestController
 @RequestMapping("/v1/price")
@@ -28,12 +29,11 @@ public class PriceController {
     private PriceService priceService;
 
 
-    @Operation(summary = "Find current product price", description = "Returned one object with an active current price")
+    @Operation(summary = PriceDocs.FindCurrentPrice.VALUE, description = PriceDocs.FindCurrentPrice.NOTES)
     @ApiResponses(value = {
             @ApiResponse(responseCode = SUCCESS_CODE, description = SUCCESS, content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = PriceResponse.class))),
-            @ApiResponse(responseCode = "400", description = "BAD_REQUEST", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = BAD_REQUEST_CODE, description = BAD_REQUEST,  content = @Content(schema = @Schema(implementation = Error.class)) ),
     })
     @GetMapping("/find-price-product/{applicationDate}/{idProduct}/{idBrand}")
     public ResponseEntity<PriceResponse> findCurrentPrice(@Parameter(description = "Date places order, format: yyyy-mm-dd HH:mm or yyyy-mm-dd HH:mm:ss",
