@@ -20,6 +20,7 @@ import com.eavila.endpoint.utils.exception.Error;
 
 import static com.eavila.endpoint.controllers.v1.swagger.OpenApiDocs.ReturnCode.*;
 
+
 @RestController
 @RequestMapping("/v1/price")
 @AllArgsConstructor
