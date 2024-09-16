@@ -1,0 +1,11 @@
+logging:
+  level:
+    org:
+      springframework: off
+      hibernate:
+        SQL: debug
+    root: off
+
+spring:
+  main:
+    banner-mode: off

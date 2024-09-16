@@ -1,0 +1,20 @@
+server:
+  port: 8001
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:store
+    username: eavila
+    password: sa
+    driver-class-name: org.h2.Driver
+  application:
+    name: endpoint
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug

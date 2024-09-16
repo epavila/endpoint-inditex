@@ -1,0 +1,16 @@
+package com.inditex.eavila.config.openapi;
+
+
+import org.springframework.context.annotation.Configuration;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
+@Configuration
+@OpenAPIDefinition(
+        info = @Info(title = "endpoint Inditex",
+                version = "1.0.0",
+                description = "Method's Documentation api")
+)
+public class OpenApiConfig {
+}
