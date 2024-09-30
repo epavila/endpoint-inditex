@@ -38,7 +38,7 @@ class GetProductPriceUseCaseTest {
 
     when(this.productPricePort.findCurrentProductPrice(startDate, idProduct, idBrand))
     .thenReturn(ProductPrice.builder()
-      .prdId(idBrand)
+      .prdId(idProduct)
       .brdId(idBrand)
       .rtsApply(new BigDecimal(5))
       .startDate(startDate)
@@ -54,6 +54,7 @@ class GetProductPriceUseCaseTest {
     ProductoPriceResponse productPriceResponse = getProductPriceUseCase.execute(request);
 
     assertNotNull(productPriceResponse);
+    assertEquals(productPriceResponse.getPrdId(), idProduct);
     assertEquals(productPriceResponse.getPrice().setScale(2, RoundingMode.DOWN), new BigDecimal(38.95).setScale(2, RoundingMode.DOWN));
 
   }
