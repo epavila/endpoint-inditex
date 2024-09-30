@@ -1,4 +1,4 @@
-package com.inditex.eavila.api.controllers.v1;
+package com.inditex.eavila.infraestructure.controllers.v1;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
