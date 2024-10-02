@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.inditex.eavila.product.application.ports.ProductPricePort;
 import com.inditex.eavila.product.domain.entities.ProductPrice;
 import com.inditex.eavila.product.infraestructure.entities.PriceEntity;
-import com.inditex.eavila.product.infraestructure.exceptions.IdNotFoundException;
+import com.inditex.eavila.product.domain.exceptions.IdNotFoundException;
 import com.inditex.eavila.product.infraestructure.repositories.PriceRepository;
 
 import lombok.AllArgsConstructor;
@@ -24,24 +24,18 @@ public class ProductPricePortImpl implements ProductPricePort {
 
 
   public ProductPrice findCurrentProductPrice(LocalDateTime applicationDate, Long idProduct, Long idBrand) {
-    try {
 
-      PriceEntity priceEntity = this.priceRepository.findCurrentProductPrice(applicationDate, idProduct, idBrand, PageRequest.of(0, 1))
-        .getContent().get(0);
+    PriceEntity priceEntity = this.priceRepository.findCurrentProductPrice(applicationDate, idProduct, idBrand, PageRequest.of(0, 1))
+      .getContent().get(0);
 
-      return ProductPrice.builder()
-        .prdId(priceEntity.getProduct().getPrdId())
-        .brdId(priceEntity.getBrand().getBrdId())
-        .rtsApply(priceEntity.getRate().getRtsApply())
-        .startDate(priceEntity.getStartDate())
-        .endDate(priceEntity.getEndDate())
-        .price(priceEntity.getPrcPrice())
-        .build();
-
-    } catch (IndexOutOfBoundsException ex) {
-      log.error("Error obtaining price, >>> Message: {}", ex.getMessage());
-      throw new IdNotFoundException("price");
-    }
+    return ProductPrice.builder()
+      .prdId(priceEntity.getProduct().getPrdId())
+      .brdId(priceEntity.getBrand().getBrdId())
+      .rtsApply(priceEntity.getRate().getRtsApply())
+      .startDate(priceEntity.getStartDate())
+      .endDate(priceEntity.getEndDate())
+      .price(priceEntity.getPrcPrice())
+      .build();
 
   }
 

@@ -12,7 +12,7 @@ import lombok.Data;
 @Builder
 public class ErrorResponse implements Serializable {
 
-    private String status = "hola";
+    private String status;
     private String code;
     private String message;
 

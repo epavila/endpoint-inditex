@@ -8,7 +8,7 @@ import com.inditex.eavila.product.application.response.ProductoPriceResponse;
 import com.inditex.eavila.product.domain.ports.GetProductPriceUseCase;
 import com.inditex.eavila.product.infraestructure.constants.GeneralConstants;
 import com.inditex.eavila.product.infraestructure.exceptions.ErrorResponse;
-import com.inditex.eavila.product.infraestructure.exceptions.PriceNotFoundException;
+import com.inditex.eavila.product.domain.exceptions.PriceNotFoundException;
 import com.inditex.eavila.product.infraestructure.openapi.PriceDocs;
 import com.inditex.eavila.product.infraestructure.request.ProductPriceRequest;
 
@@ -48,7 +48,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Endpoint to check product prices")
 public class ProductController {
 
-  // private final ProductService productService;
   private final GetProductPriceUseCase getProductPriceUseCase;
   private final ObjectMapper objectMapper;
 
@@ -80,7 +79,7 @@ public class ProductController {
       if (applicationDate.length() == 16) {
         applicationDate = applicationDate.concat(":00");
       }
-      // ProductoPriceResponse priceResponse = productService.findCurrentPrice(applicationDate, idProduct, idBrand);
+
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern(GeneralConstants.FORMAT_DATE);
       LocalDateTime date = LocalDateTime.parse(applicationDate, formatter);
 

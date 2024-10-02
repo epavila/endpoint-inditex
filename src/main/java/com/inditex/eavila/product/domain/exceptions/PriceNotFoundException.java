@@ -1,4 +1,4 @@
-package com.inditex.eavila.product.infraestructure.exceptions;
+package com.inditex.eavila.product.domain.exceptions;
 
 public class PriceNotFoundException extends RuntimeException {
 

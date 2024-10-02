@@ -3,6 +3,7 @@ package com.inditex.eavila.product.application.usecases;
 import com.inditex.eavila.product.application.ports.ProductPricePort;
 import com.inditex.eavila.product.application.response.ProductoPriceResponse;
 import com.inditex.eavila.product.domain.entities.ProductPrice;
+import com.inditex.eavila.product.domain.exceptions.PriceNotFoundException;
 import com.inditex.eavila.product.domain.ports.GetProductPriceUseCase;
 import com.inditex.eavila.product.infraestructure.request.ProductPriceRequest;
 
@@ -20,11 +21,17 @@ public class GetProductPriceUseCaseImpl implements GetProductPriceUseCase {
 
   @Override
   public ProductoPriceResponse execute(ProductPriceRequest request) {
-    ProductPrice productPrice = this.productPricePort.findCurrentProductPrice(request.getApplicationDate(), request.getIdProduct(), request.getIdBrand());
+    try {
+      ProductPrice productPrice = this.productPricePort.findCurrentProductPrice(request.getApplicationDate(), request.getIdProduct(), request.getIdBrand());
 
-    ProductoPriceResponse productPriceResponse = new ProductoPriceResponse();
-    BeanUtils.copyProperties(productPrice, productPriceResponse);
+      ProductoPriceResponse productPriceResponse = new ProductoPriceResponse();
+      BeanUtils.copyProperties(productPrice, productPriceResponse);
 
-    return productPriceResponse;
+      return productPriceResponse;
+
+    } catch (IndexOutOfBoundsException ex) {
+      log.error("Error obtaining price, >>> Message: {}", ex.getMessage());
+      throw new PriceNotFoundException("price");
+    }
   }
 }
